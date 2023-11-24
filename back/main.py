@@ -5,12 +5,39 @@ from matplotlib import pyplot as plt
 import csv
 
 from fastapi import FastAPI, File, UploadFile
+from typing import List
 
 app=FastAPI(
     title="back for cbcase"
 )
 
-@app.post("/upload")
+@app.post("/uploadmany")
+def uploadMany(files: List[UploadFile] = File(...)):
+    try:
+        u=0
+        for i, file in enumerate(files):
+            try:
+                contents = file.file.read()
+                with open(file.filename, 'wb') as f:
+                    f.write(contents)
+                    exp=(str(f).split("'")[1].split('.'))[len(str(f).split("'")[1].split('.'))-1]
+                    if exp!=("csv"):
+                        raise Exception("not a csv file")
+            except Exception:
+                return {"message": "There was an error uploading the file(s)"}
+            finally:
+                file.file.close()
+                os.replace(str(f).split("'")[1], f"temp{i}.csv")
+            u=i+1
+        if u!=3:
+            raise Exception("not enough or to many files")
+    except Exception:
+        return {"message": "There was an error uploading the file(s)"}
+
+    return {"message": f"Successfuly uploaded {[file.filename for file in files]}"}
+
+
+@app.post("/uploadone")
 def upload(file: UploadFile=File(...)):
     try:
         contents=file.file.read()
