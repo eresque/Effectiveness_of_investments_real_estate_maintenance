@@ -1,0 +1,23 @@
+@import './variables.scss';
+@import './fonts.scss';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'FiraSans';
+}
+
+body {
+    background: $darkBackgroundColor;
+    color: $white;
+}
+
+h2 {
+    text-transform: uppercase;
+    color: $darkBackgroundColor;
+}
+
+#root {
+    height: 100vh;
+}

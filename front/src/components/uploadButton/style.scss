@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+
+#input_files {
+    display: none;
+}
+
+.btn_area {
+    font-size: 16px;
+    color: $white;
+    background-color: $mainColor;
+    border: 2px solid $mainColor;
+    border-radius: 4px;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    transition: 0.15s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $lightSecondMainColor;
+        border: 2px solid $lightSecondMainColor;
+        color: $white;
+        transition: 0.15s;
+    }
+}
