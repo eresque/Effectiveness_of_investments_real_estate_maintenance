@@ -1,0 +1,77 @@
+@import './variables.scss';
+
+section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+
+    @media (min-width: 950px) {
+        flex-direction: row;
+    }
+
+    @media (max-width: 950px) {
+        flex-direction: column;
+    }
+}
+
+.main-right {
+    flex: 1;
+    background: $secondMainColor;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-left {
+    flex: 1;
+    background: $white;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-part {
+    .main-right {
+        justify-content: center;
+        align-items: center;
+
+        .graph {
+            @media (min-width: 950px) {
+                width: 90%;
+            }
+
+            @media (max-width: 950px) {
+                height: 80%;
+            }
+        }
+    }
+
+    .main-left {
+        align-items: center;
+        justify-content: center;
+
+        .tittle-web {
+            font-size: 40px;
+            margin: 20px;
+
+            @media (max-width: 950px) {
+                text-align: center;
+            }
+        }
+
+        .btn {
+            margin: 20px;
+        }
+
+        .drag_drop {
+            margin: 20px;
+
+            @media (max-width: 950px) {
+                display: none;
+            }
+        }
+
+        .message {
+            color: $darkBackgroundColor;
+            margin: 20px;
+        }
+    }
+}
