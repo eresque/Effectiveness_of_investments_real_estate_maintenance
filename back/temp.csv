@@ -1,0 +1,251 @@
+Enter password: ************
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 36
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| test               |
+| world              |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> CREATE DATABASE autocafe;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> use autocafe;
+Database changed
+mysql> CREATE TABLE order, cooking_queue, order_preparation_shop, conveyor, dish_material, order_dish, dish, material;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order, cooking_queue, order_preparation_shop, conveyor, dish_material, order_dis' at line 1
+mysql> CREATE TABLE order;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntyour MySQL server version for the rigmysql> CREATE TABLE order (), cooking_queue, order_preparation_shop, conveyor, dish_material, o
+mysql> CREATE TABLE order(
+    -> ID int AUTO_INCREMENT,
+    -> position_counter int ()
+       position_counter int (10) NOT NULL,
+    -> time_create datetime NOT NULL,
+    -> PRIMARY KEY (ID)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order(
+ID int AUTO_INCREMENT,
+position_counter int (10) NOT NULL,
+time_create da' at line 1
+mysql> CREATE TABLE order (
+    -> ID int AUTO_INCREMENT,
+    -> position_counter int (10) NOT NULL,
+    -> time_create datetime NOT NULL,
+    -> PRIMARY KEY (ID)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order (
+ID int AUTO_INCREMENT,
+position_counter int (10) NOT NULL,
+time_create d' at line 1
+mysql> SHOW TABLES
+    -> ;
+Empty set (0.00 sec)
+
+mysql> create table order (ID int AUTO_INCREMENT, position_counter int(10) NOT NULL, time_create datetime NOT NULL, PRIMARY KEY (ID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order (ID int AUTO_INCREMENT, position_counter int(10) NOT NULL, time_create dat' at line 1
+mysql> CREATE TABLE `order` (
+    -> `ID` int NOT NULL AUTO_INCREMENT,
+    -> `position_counter` int NOT NULL,
+    -> `time_create` datetime NOT NULL,
+    -> PRIMARY KEY (`ID`)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> show tables
+    -> ;
++--------------------+
+| Tables_in_autocafe |
++--------------------+
+| order              |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE `dish` (
+    -> `ID` NOT NULL AUTO_INCREMENT,
+    -> `name` varchar(250) NOT NULL,
+    -> PRIMARY KEY (`ID`)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL AUTO_INCREMENT,
+`name` varchar(250) NOT NULL,
+PRIMARY KEY (`ID`)
+)' at line 2
+mysql> CREATE TABLE `dish` (
+    -> `ID` int NOT NULL AUTO_INCREMENT,
+    -> `name` varchar(250) NOT NULL,
+    -> PRIMARY KEY (`ID`)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> CREATE TABLE `material` (
+    -> `ID` int NOT NULL AUTO_INCREMENT,
+    -> `name` varchar(250) NOT NULL,
+    -> PRIMARY KEY (`ID`)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE `dish_material` (
+    -> `ID` int NOT NULL AUTO_INCREMENT,
+    -> `material_ID` int NOT NULL,
+    -> `dish_ID` int NOT NULL,
+    -> PRIMARY KEY (`ID`),
+    -> FOREIGN KEY (`material_ID) REFERENCES `material` (`ID`),
+    `> ;
+    `> ;
+    `> `
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'material` (`ID`),
+;
+;
+`' at line 6
+mysql> CREATE TABLE `dish_material` (
+    -> `ID` int NOT NULL AUTO_INCREMENT,
+    -> `material_ID` int NOT NULL,
+    -> `dish_ID` int NOT NULL,
+    -> PRIMARY KEY (`ID`),
+    -> FOREIGN KEY (`material_ID`) REFERENCES `material` (`ID`),
+    -> FOREIGN KEY (`dish_ID`) REFERENCES `dish` (`ID`),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 8
+mysql> CREATE TABLE `dish_material` (
+    -> `ID` int NOT NULL AUTO_INCREMENT,
+    -> `material_ID` int NOT NULL,
+    -> `dish_ID` int NOT NULL,
+    -> PRIMARY KEY (`ID`),
+    -> FOREIGN KEY (`material_ID`) REFERENCES `material` (`ID`),
+    -> FOREIGN KEY (`dish_ID`) REFERENCES `dish` (`ID`)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> SHOW TABLES
+    -> ;
++--------------------+
+| Tables_in_autocafe |
++--------------------+
+| dish               |
+| dish_material      |
+| material           |
+| order              |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE `order_dish` (
+    -> `ID` int NOT NULL AUTO_INCREMENT,
+    -> `degree_of_readlness` int NOT NULL,
+    -> `order_ID` int NOT NULL,
+    -> `dish_ID` int NOT NULL,
+    -> PRIMARY KEY (`ID`),
+    -> FOREIGN KEY (`order_ID`) REFERENCES `order` (`ID`),
+    -> FOREIGN KEY (`dish_ID`) REFERENCES `dish` (`ID`)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> SHOW TABLES
+    -> ;
++--------------------+
+| Tables_in_autocafe |
++--------------------+
+| dish               |
+| dish_material      |
+| material           |
+| order              |
+| order_dish         |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE `conveyor` (
+    -> `ID` int NOT NULL AUTO_INCREMENT,
+    -> `dish_ID` int NOT NULL,
+    -> `type` int NOT NULL,
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+mysql> CREATE TABLE `conveyor` (
+    -> `ID` int NOT NULL AUTO_INCREMENT,
+    -> `dish_ID` int NOT NULL,
+    -> `type` int NOT NULL,
+    -> `dish_dest` int NOT NULL,
+    -> `position` int NOT NULL,
+    -> PRIMARY KEY (`ID`),
+    -> FOREIGN KEY (`dish_ID`) REFERENCES `dish` (`ID`)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SHOW TABLES
+    -> ;
++--------------------+
+| Tables_in_autocafe |
++--------------------+
+| conveyor           |
+| dish               |
+| dish_material      |
+| material           |
+| order              |
+| order_dish         |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> CREATE TABLE `cooking_queue` (
+    -> `ID` int NOT NULL AUTO_INCREMENT,
+    -> `order_dish_ID` int NOT NULL,
+    -> `shop_ID` int NOT NULL,
+    -> `queue` int NOT NULL,
+    -> PRIMARY KEY (`ID`),
+    -> FOREIGN KEY (`order_dish_ID`) REFERENCES `order_dish` (`ID`),
+    -> FOREIGN KEY (`shop_ID`) REFERENCES `order_preparation_shop` (`ID`)
+    -> );
+ERROR 1824 (HY000): Failed to open the referenced table 'order_preparation_shop'
+mysql> CREATE TABLE `order_preparation_shop` (
+    -> `ID` int NOT NULL AUTO_INCREMENT,
+    -> `type` int NOT NULL,
+    -> `time` datetime NOT NULL,
+    -> `order_dish_ID` int NOT NULL,
+    -> PRIMARY KEY (`ID`),
+    -> FOREIGN KEY (`order_dish_ID`) REFERENCES `order_dish` (`ID`)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE `cooking_queue` (
+    -> `ID` int NOT NULL AUTO_INCREMENT,
+    -> `order_dish_ID` int NOT NULL,
+    -> `shop_ID` int NOT NULL,
+    -> `queue` int NOT NULL,
+    -> PRIMARY KEY (`ID`),
+    -> FOREIGN KEY (`order_dish_ID`) REFERENCES `order_dish` (`ID`),
+    -> FOREIGN KEY (`shop_ID`) REFERENCES `order_preparation_shop` (`ID`)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> SHOW TABLES
+    -> ;
++------------------------+
+| Tables_in_autocafe     |
++------------------------+
+| conveyor               |
+| cooking_queue          |
+| dish                   |
+| dish_material          |
+| material               |
+| order                  |
+| order_dish             |
+| order_preparation_shop |
++------------------------+
+8 rows in set (0.00 sec)
+
+mysql>
