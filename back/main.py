@@ -77,7 +77,6 @@ def getGraph():
         return {"message":"error in generating plot"}
 
 
-@app.get("/test")
 def getInfo():
     getGraph().savefig('growth.png')
     templates={"message":"generated succesfully"}
